@@ -84,7 +84,11 @@
     border:solid 0.1vw black;
     font-size:1vw;
 }
-
+.front-other-box{
+    width:20vw;
+    height:20vh;
+    border:0.1vw solid black;
+}
 .nav-bar-bg{
     background-color:transparent;
   }
