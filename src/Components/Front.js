@@ -2,12 +2,6 @@ import React from 'react';
 import Login from './Login';
 
 class Front extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-    
-
-
     render() {
         return (
             <div className="front-parent d-flex flex-column

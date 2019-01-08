@@ -12,11 +12,6 @@ const uiConfig = {
 }
 
 class Login extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-
     render() {
         return (
             <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth = {firebase.auth()}/>

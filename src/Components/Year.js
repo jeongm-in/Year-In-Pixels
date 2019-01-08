@@ -103,7 +103,7 @@ class Year extends React.Component {
                 let dayClass = 'cell-size';
                 if(notRealDate){
                     dayClass += ' cell-invalid';
-                }else if(this.props.today==dayID){
+                }else if(this.props.today===dayID){
                     dayClass += ' year-today-border'
                 }
                 dayBoxes.push(<th

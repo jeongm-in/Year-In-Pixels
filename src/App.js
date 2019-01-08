@@ -5,12 +5,6 @@ import moment from 'moment';
 import './App.css';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-
-  }
-
-
 
   render() {
     let currentYear = moment().format('YYYY');
