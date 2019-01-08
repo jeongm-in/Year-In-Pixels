@@ -18,9 +18,9 @@ class Front extends React.Component {
 
                     </div>
                 </div>
-                <div className = 'front-other-footer d-flex flex-row'>
-                <div>#YearInPixels by Camille</div>&nbsp;
-                    <a href="https://www.instagram.com/passioncarnets/">(@passioncarnets)</a>
+                <div className = 'front-other-footer d-flex flex-row justify-content-center align-items-center'>
+                    YearInPixels by Camille&nbsp;
+                    <a href="https://www.instagram.com/passioncarnets/">(@passioncarnets)</a>               
                 </div>
             
             

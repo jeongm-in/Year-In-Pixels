@@ -6,7 +6,7 @@
     
 }
 .front-box-parent{
-    width:60vw;
+    width:55vw;
     height:100vh;
 }
 
@@ -33,22 +33,28 @@
 }
 .year-legend{
     width:10vw;
-    height:20vh;
+    height:16vw;
 }
 
 .year-legend-row{
     width:10vw;
-    height:3vh;
+    height:1.5vw;
     font-size: 1vw;
-    text-align:left;
+    text-align:right;
+    margin-top:0.5vw;
+    
 }
 
 .year-legend-color{
-    width:3vh;
-    height:3vh;
+    width:1.5vw;
+    height:1.5vw;
     margin-right:2vw;
-}
 
+}
+.year-legend-text{
+    width:5vw;
+    height:1.5vw;
+}
 .front-parent{
     width:25vw;
     height:96vh;
@@ -63,9 +69,26 @@
 
 .front-year-text{
     font-size: 2vw;
+    width:10vw;
+    height:3vw;
+}
+.front-year-legends{
+    width:10vw;
+    height:14vw;
+
+
+}
+.front-other-footer{
+    width:20vw;
+    height:4vh;
+    border:solid 0.1vw black;
+    font-size:1vw;
 }
 
 .nav-bar-bg{
     background-color:transparent;
   }
   
+.year-today-border{
+    border:0.2vw solid #26de81;
+}

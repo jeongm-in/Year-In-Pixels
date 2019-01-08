@@ -70,7 +70,6 @@ class Year extends React.Component {
     }
     
     loadMoodAndYear = (who)=>{
-        // this.setState({queryOwner:'users/'+ who+ '/'+this.props.year+'/mood'});
         var refMood = fire.database().ref('users/'+ who+ '/'+this.props.year+'/mood');
         refMood.on('value',(snapshot)=>{
             // console.log(snapshot.val());
@@ -101,10 +100,14 @@ class Year extends React.Component {
                 let formatI = i<10?'0'+i:i;
                 let dayID = formatI + '_' + formatD;
                 let notRealDate = this.state.invalid[i].includes(d);
-                               
-                dayBoxes.push(<th className=
-                    {notRealDate?'cell-size cell-invalid':
-                    'cell-size'}
+                let dayClass = 'cell-size';
+                if(notRealDate){
+                    dayClass += ' cell-invalid';
+                }else if(this.props.today==dayID){
+                    dayClass += ' year-today-border'
+                }
+                dayBoxes.push(<th
+                 className= {dayClass}
                  key={'day_' + d + '_' + i} id={dayID} 
                  onClick={notRealDate?this.doNothing:this.onClick}
                  onContextMenu = {notRealDate?this.doNothing:this.handleContextMenu}
@@ -127,7 +130,7 @@ class Year extends React.Component {
             flex-row justify-content-between align-items-center year-legend-row">
                 <div className="year-legend-color" style={{'backgroundColor':this.state.mood[i][0]}}>
                 </div>
-                <div>
+                <div className="year-legend-text">
                 {this.state.mood[i][1]}
                 </div>    
             </div>);
@@ -145,9 +148,9 @@ class Year extends React.Component {
 
                     </tbody>
                 </table>
-                <div className='year-legend d-flex flex-column justify-content-around align-items-center'>
+                <div className='year-legend d-flex flex-column justify-content-between align-items-center'>
                     <div className = "front-year-text">{this.state.year}</div>
-                    {moodLegend}
+                    <div className = "front-year-legends">{moodLegend}</div>
                 </div>
             </div>
 
