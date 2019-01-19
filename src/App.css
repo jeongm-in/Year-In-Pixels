@@ -81,13 +81,13 @@
 .front-other-footer{
     width:20vw;
     height:4vh;
-    border:solid 0.1vw black;
     font-size:1vw;
 }
 .front-other-box{
     width:20vw;
     height:20vh;
-    border:0.1vw solid black;
+    border:solid 0.1vw black;
+
 }
 .nav-bar-bg{
     background-color:transparent;
@@ -95,4 +95,8 @@
   
 .year-today-border{
     border:0.2vw solid #26de81;
+}
+
+.front-welcome{
+
 }
