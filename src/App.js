@@ -2,9 +2,9 @@ import React from 'react';
 import Year from './Components/Year';
 import moment from 'moment';
 import './App.css';
-import firebase, { functions } from 'firebase';
+import firebase from 'firebase';
 import { StyledFirebaseAuth } from 'react-firebaseui';
-
+// const functions = require('firebase-functions');
 
 const uiConfig = {
   signInFlow: 'popup',
@@ -25,7 +25,7 @@ class App extends React.Component {
 
     this.state = {
       isSignedIn: false, // Local signed-in state.
-      userid: '',
+      userid: 'default',
     };
 
     this.handleSignOut = this.handleSignOut.bind(this);
@@ -33,10 +33,17 @@ class App extends React.Component {
 
   componentDidMount() {
     this.unregisterAuthObserver = firebase.auth().onAuthStateChanged(
+      
       (user) => {
-        this.setState({ isSignedIn: !!user, userid: user.uid });
+        if(user){
+          // $scope.authData = user;
+          firebase.database().ref('/user/').update({'user': user.uid});
+          this.setState({isSignedIn:!!user, userid:user.uid})
+        }
+        else{
+          this.setState({isSignedIn:false, userid:'default'});
+        } 
       }
-      // functions.database.ref('')
     );
   }
 
@@ -44,26 +51,25 @@ class App extends React.Component {
     this.unregisterAuthObserver();
   }
 
-  handleSignOut = () => {
-    this.setState({ issignedIn: false, userid: '' });
-    firebase.auth().signOut();
+  handleSignOut = async () => {
+    try {
+      await firebase.auth().signOut();
+      this.setState({ isSignedIn: false, userid: 'default' });
+    } catch (error){
+      console.log(error);
+    }
   }
 
 
   render() {
     let currentYear = moment().format('YYYY');
     let today = moment().format("MM[_]DD");
-    let logInComponent = this.state.isSignedIn ? (
-      <div className="d-flex flex-column justify-content-between align-items-center">
-      <div>Welcome {firebase.auth().currentUser.displayName}</div>
-      <button className="btn btn-sm btn-warning" onClick={this.handleSignOut}>Sign Out</button>
-      </div>) : 
-      <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />;
-  
-  
+    let loginComp = this.state.isSignedIn ? (<div className="d-flex flex-column justify-content-between align-items-center">
+    <div>Welcome {firebase.auth().currentUser.displayName}</div>
+    <button className="btn btn-sm btn-warning" onClick={this.handleSignOut}>Sign Out</button>
+    </div>) : (<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />);
 
-
-    return (
+return (
       <div className="front-bg d-flex flex-row justify-content-around align-items-center">
         <div className="front-box-parent d-flex flex-row justify-content-around align-items-center">
           <div className="d-flex flex-column justify-content-around align-items-center">
@@ -74,7 +80,7 @@ class App extends React.Component {
                 </div>
         </div>
         <div className="front-other-box d-flex flex-column justify-content-around align-items-ceneter">
-          {logInComponent}
+          {loginComp}
           <div className='front-other-footer d-flex flex-row justify-content-center align-items-center'>
             YearInPixels by Camille&nbsp;
                     <a href="https://www.instagram.com/passioncarnets/">(@passioncarnets)</a>
@@ -82,8 +88,7 @@ class App extends React.Component {
         </div>
       </div>
           </div>
-          <Year year={currentYear} today={today} />
-
+          <Year year={currentYear} today={today} uid = {this.state.userid} />
         </div>
       </div>
     );

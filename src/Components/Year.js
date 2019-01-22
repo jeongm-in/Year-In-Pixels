@@ -1,5 +1,8 @@
 import React from 'react';
 import fire from '../Fire';
+
+
+
 class Year extends React.Component {
     constructor(props) {
         super(props);
@@ -26,7 +29,7 @@ class Year extends React.Component {
                 '0':['transparent','none'],'1':['#fbc531','Happy'],'2':['#74b9ff','Average'],'3':['#9980FA','Sad'],
                 '4':['#ED4C67','Angry'],'5':['#4cd137','Lonely'],'6':['#7f8fa6','Tired'],
             },
-            
+            userId:this.props.uid,
             queryOwner:0,
             yourMood:{},
             year:this.props.year,
@@ -44,7 +47,7 @@ class Year extends React.Component {
         document.getElementById(event.target.id).setAttribute('style',
         'background:'+this.state.mood[0][0]);
         document.getElementById(event.target.id).setAttribute('mood',0);
-        fire.database().ref('users/'+ this.state.queryOwner+ '/'+this.props.year+'/mood/'+event.target.id).set(0);
+        fire.database().ref('users/'+ this.state.userId+'/0/mood/'+event.target.id).set(0);
 
     }
 
@@ -58,7 +61,7 @@ class Year extends React.Component {
         document.getElementById(event.target.id).setAttribute('style',
         'background:'+this.state.mood[currentMood][0]);
         document.getElementById(event.target.id).setAttribute('mood',currentMood);
-        fire.database().ref('users/'+ this.state.queryOwner+ '/'+this.props.year+'/mood/'+event.target.id).set(currentMood);
+        fire.database().ref('users/'+this.state.userId +'/0/mood/'+event.target.id).set(currentMood);
     }
 
     doNothing=event=>{
@@ -66,11 +69,11 @@ class Year extends React.Component {
     }
            
     componentWillMount(){
-        this.loadMoodAndYear(this.state.queryOwner);
+        this.loadMoodAndYear(this.state.userId);
     }
     
     loadMoodAndYear = (who)=>{
-        var refMood = fire.database().ref('users/'+ who+ '/'+this.props.year+'/mood');
+        var refMood = fire.database().ref('users/'+ who+ '/0/mood');
         refMood.on('value',(snapshot)=>{
             // console.log(snapshot.val());
             this.setState({yourMood:snapshot.val(),loaded:true});
