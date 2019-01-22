@@ -2,7 +2,6 @@ import React from 'react';
 import fire from '../Fire';
 
 
-
 class Year extends React.Component {
     constructor(props) {
         super(props);
@@ -30,11 +29,9 @@ class Year extends React.Component {
                 '4':['#ED4C67','Angry'],'5':['#4cd137','Lonely'],'6':['#7f8fa6','Tired'],
             },
             userId:this.props.uid,
-            queryOwner:0,
             yourMood:{},
             year:this.props.year,
             loaded:false,
-
         }
         this.onClick = this.onClick.bind(this);
         this.doNothing = this.doNothing.bind(this);
@@ -48,7 +45,6 @@ class Year extends React.Component {
         'background:'+this.state.mood[0][0]);
         document.getElementById(event.target.id).setAttribute('mood',0);
         fire.database().ref('users/'+ this.state.userId+'/0/mood/'+event.target.id).set(0);
-
     }
 
 
@@ -67,12 +63,15 @@ class Year extends React.Component {
     doNothing=event=>{
 
     }
-           
-    componentWillMount(){
+
+    componentDidMount(){
+        // this.setState()
         this.loadMoodAndYear(this.state.userId);
     }
-    
+
+
     loadMoodAndYear = (who)=>{
+        console.log(this.props.uid);
         var refMood = fire.database().ref('users/'+ who+ '/0/mood');
         refMood.on('value',(snapshot)=>{
             // console.log(snapshot.val());
@@ -85,7 +84,7 @@ class Year extends React.Component {
 
 
     render() {
-        
+        console.log('year says state is ' + this.state.userId);
         let monthTitle = [];
         monthTitle.push(<th className="cell-size" key='first-row' 
         id="first-row">▼</th>)

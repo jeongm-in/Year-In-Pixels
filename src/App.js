@@ -38,7 +38,7 @@ class App extends React.Component {
         if(user){
           // $scope.authData = user;
           firebase.database().ref('/user/').update({'user': user.uid});
-          this.setState({isSignedIn:!!user, userid:user.uid})
+          this.setState({isSignedIn:!!user, userid:user.uid});
         }
         else{
           this.setState({isSignedIn:false, userid:'default'});
@@ -68,7 +68,7 @@ class App extends React.Component {
     <div>Welcome {firebase.auth().currentUser.displayName}</div>
     <button className="btn btn-sm btn-warning" onClick={this.handleSignOut}>Sign Out</button>
     </div>) : (<StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />);
-
+    console.log(this.state);
 return (
       <div className="front-bg d-flex flex-row justify-content-around align-items-center">
         <div className="front-box-parent d-flex flex-row justify-content-around align-items-center">
@@ -88,7 +88,7 @@ return (
         </div>
       </div>
           </div>
-          <Year year={currentYear} today={today} uid = {this.state.userid} />
+          <Year year={currentYear} today={today} uid={this.state.userid} />
         </div>
       </div>
     );
