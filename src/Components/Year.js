@@ -44,20 +44,19 @@ class Year extends React.Component {
         document.getElementById(event.target.id).setAttribute('style',
         'background:'+this.state.mood[0][0]);
         document.getElementById(event.target.id).setAttribute('mood',0);
-        fire.database().ref('users/'+ this.state.userId+'/0/mood/'+event.target.id).set(0);
+        fire.database().ref('users/'+ this.props.uid+'/0/mood/'+event.target.id).set(0);
     }
 
 
 
     onClick= (event)=>{
-        // console.log(event.target.id);
         let currentMood = event.target.getAttribute('mood');
         currentMood ++;
         currentMood %= 7;
         document.getElementById(event.target.id).setAttribute('style',
         'background:'+this.state.mood[currentMood][0]);
         document.getElementById(event.target.id).setAttribute('mood',currentMood);
-        fire.database().ref('users/'+this.state.userId +'/0/mood/'+event.target.id).set(currentMood);
+        fire.database().ref('users/'+this.props.uid +'/0/mood/'+event.target.id).set(currentMood);
     }
 
     doNothing=event=>{
@@ -65,10 +64,13 @@ class Year extends React.Component {
     }
 
     componentDidMount(){
-        // this.setState()
-        this.loadMoodAndYear(this.state.userId);
+        this.loadMoodAndYear(this.props.uid);
     }
-
+    componentWillMount(){
+        // this.setState({userId:this.props.uid});
+        // console.log(this.props.uid);
+        // console.log(this.state.userId);
+    }
 
     loadMoodAndYear = (who)=>{
         console.log(this.props.uid);
@@ -84,7 +86,7 @@ class Year extends React.Component {
 
 
     render() {
-        console.log('year says state is ' + this.state.userId);
+        console.log('year says state is ' + this.props.uid);
         let monthTitle = [];
         monthTitle.push(<th className="cell-size" key='first-row' 
         id="first-row">▼</th>)
